@@ -17,9 +17,14 @@ public class PersonaService implements PersonaServiceLocal {
     @EJB
     private PersonaDaoLocal personaDao;  
         
-
+    @Override
     public List listPersonas() {
-        return personaDao.listPersonas();
+        try{
+            return personaDao.listPersonas();
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override

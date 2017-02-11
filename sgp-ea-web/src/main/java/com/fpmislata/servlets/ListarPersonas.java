@@ -5,9 +5,11 @@
  */
 package com.fpmislata.servlets;
 
+import com.fpmislata.domain.Persona;
 import com.fpmislata.service.PersonaServiceLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.naming.InitialContext;
@@ -44,8 +46,9 @@ public class ListarPersonas extends HttpServlet {
         try{
             // Ejecutamos el metodo y obtenemos la lista
             List lista = personaService.listPersonas();
+            ArrayList<Persona> listaArray = new ArrayList<>(lista);
             // Asignamos al request el atributo lista
-            request.getSession().setAttribute("personas",lista);
+            request.getSession().setAttribute("personas",listaArray);
             // Pasamos al RequestDispatcher la pagina a cargar
             RequestDispatcher rd = request.getRequestDispatcher("/listarPersonas.jsp");
             // Cargamos la pagina
