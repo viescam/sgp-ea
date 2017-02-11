@@ -5,6 +5,7 @@
  */
 package com.fpmislata.domain;
 
+import java.io.Serializable;
 import javax.persistence.*;
 
 /**
@@ -12,9 +13,14 @@ import javax.persistence.*;
  * @author lodiade
  */
 @Entity
-@Table(name= "personas")
-public class Persona {
+@NamedQueries( { @NamedQuery(name = "Persona.findAll", query = "SELECT p FROM Persona p ORDER BY p.id") })
+@Table(name="personas")
 
+public class Persona implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="id-persona")
