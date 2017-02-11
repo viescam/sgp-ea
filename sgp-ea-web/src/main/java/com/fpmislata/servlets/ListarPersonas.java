@@ -28,6 +28,8 @@ public class ListarPersonas extends HttpServlet {
     @EJB
     private PersonaServiceLocal personaService;
 
+
+
     // Inyeccion de dependencias
     
 

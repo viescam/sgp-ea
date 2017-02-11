@@ -19,6 +19,7 @@
                     <th>Nombre</th>
                     <th>Email</th>
                     <th>Telefono</th>
+                    <th>Numero socio</th>
                     <th></th>
                     <th></th>
  
@@ -32,11 +33,13 @@
                     String nombre = persona.getNombre();
                     String email = persona.getEmail();
                     String telefono = persona.getTelefono();
+                    int socio = persona.getSocio().getNumSocio();
                 %>                
 		<tr>
                     <td><%=nombre%></a></td>
                     <td><%=email%></td>
                     <td><%=telefono%></td>
+                    <td><%=socio%></td>
                     <td><a href="ModificarPersona?accion=editar&id=<%=id%>">Modificar</td>
                     <td><a href="EliminarPersona?id=<%=id%>">Eliminar</a></td>
                 </tr>

@@ -24,6 +24,9 @@
 		
 		<label for="telefono">Teléfono:</label>
 		<input type="text" name="telefono" style="display: block;"/>
+                
+                <label for="numSocio">Numero socio:</label>
+		<input type="text" name="numSocio" style="display: block;"/>
 		
 		<input type="submit" value="Enviar" />
 	</form>

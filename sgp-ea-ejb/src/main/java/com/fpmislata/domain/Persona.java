@@ -13,26 +13,31 @@ import javax.persistence.*;
  * @author lodiade
  */
 @Entity
-@NamedQueries( { @NamedQuery(name = "Persona.findAll", query = "SELECT p FROM Persona p ORDER BY p.id") })
-@Table(name="personas")
-
+@NamedQueries({
+    @NamedQuery(name = "Persona.findAll", query = "SELECT p FROM Persona p ORDER BY p.id")})
+@Table(name = "personas")
 public class Persona implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id-persona")
+    @Column(name = "id_persona")
     private int id;
-    
-    @Column(nullable=false, length=45)
+
+    @Column(nullable = false, length = 45)
     private String nombre;
-    @Column(length=45)
+
+    @Column(length = 45)
     private String email;
-    @Column(length=45)
-    private String telefono;  
+
+    @Column(length = 20)
+    private String telefono;
     
+    @OneToOne(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
+    @PrimaryKeyJoinColumn
+    private Socio socio;
+
     public Persona() {
     }
 
@@ -41,7 +46,16 @@ public class Persona implements Serializable {
         this.email = email;
         this.telefono = telefono;
     }
-    
+
+    public Socio getSocio() {
+        return socio;
+    }
+
+    public void setSocio(Socio socio) {
+        this.socio = socio;
+    }
+       
+
     public int getId() {
         return id;
     }
@@ -73,6 +87,5 @@ public class Persona implements Serializable {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-
 
 }

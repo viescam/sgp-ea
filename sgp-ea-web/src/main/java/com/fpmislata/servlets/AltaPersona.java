@@ -6,9 +6,11 @@
 package com.fpmislata.servlets;
 
 import com.fpmislata.domain.Persona;
+import com.fpmislata.domain.Socio;
 import com.fpmislata.service.PersonaServiceLocal;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.naming.InitialContext;
@@ -43,12 +45,19 @@ public class AltaPersona extends HttpServlet {
         String nombre = request.getParameter("nombre");
         String email = request.getParameter("email");
         String telefono = request.getParameter("telefono");
+        int numSocio = Integer.parseInt(request.getParameter("numSocio"));
 
         //2. Creamos el objeto Persona
         Persona persona = new Persona();
         persona.setNombre(nombre);
         persona.setEmail(email);
         persona.setTelefono(telefono);
+        
+        //Creamos el objeto Socio
+        Socio socio = new Socio();
+        socio.setNumSocio(numSocio);
+        
+        persona.setSocio(socio);
 
         try {            
             //Si ya existe el email no deberia registrarse
@@ -60,7 +69,8 @@ public class AltaPersona extends HttpServlet {
 
         // Volvemos a cargar la lista de personas
 	List<Persona> lista = personaService.listPersonas();
-	request.setAttribute("personas", lista);
+        ArrayList<Persona> listaArray = new ArrayList<>(lista);
+        request.getSession().setAttribute("personas",listaArray);
 
 	request.getRequestDispatcher("/listarPersonas.jsp").forward(request,response);        
     }

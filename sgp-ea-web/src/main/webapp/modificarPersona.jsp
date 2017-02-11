@@ -22,6 +22,9 @@
 
         <label for="telefono">Teléfono:</label>
         <input type="text" name="telefono" value="${persona.telefono}" style="display: block;"/>
+        
+        <label for="numSocio">Numero socio:</label>
+        <input type="text" name="numSocio" value="${persona.socio.numSocio}" style="display: block;"/>
 
         <input type="submit" name="guardar" value="guardar">
     </form>
