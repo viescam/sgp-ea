@@ -37,6 +37,10 @@ public class Persona implements Serializable {
     @OneToOne(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
     @PrimaryKeyJoinColumn
     private Socio socio;
+    
+    @OneToOne(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
+    @JoinColumn(name="direccion")
+    private Direccion direccion;
 
     public Persona() {
     }
@@ -54,7 +58,17 @@ public class Persona implements Serializable {
     public void setSocio(Socio socio) {
         this.socio = socio;
     }
+
+    public Direccion getDireccion() {
+        return direccion;
+    }
+
+    public void setDireccion(Direccion direccion) {
+        this.direccion = direccion;
+    }
        
+    
+    
 
     public int getId() {
         return id;

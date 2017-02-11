@@ -27,6 +27,19 @@
                 
                 <label for="numSocio">Numero socio:</label>
 		<input type="text" name="numSocio" style="display: block;"/>
+                
+                <label for="direccion">Direccion:</label>
+		<input type="text" name="direccion" style="display: block;"/>
+                
+                <label for="poblacion">Población:</label>
+		<input type="text" name="poblacion" style="display: block;"/>
+                
+                <label for="codigoPostal">Código Postal:</label>
+		<input type="text" name="codigoPostal" style="display: block;"/>
+                
+                <label for="provincia">Provincia:</label>
+		<input type="text" name="provincia" style="display: block;"/>
+                
 		
 		<input type="submit" value="Enviar" />
 	</form>

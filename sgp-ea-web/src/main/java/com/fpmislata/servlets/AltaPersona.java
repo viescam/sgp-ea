@@ -5,6 +5,7 @@
  */
 package com.fpmislata.servlets;
 
+import com.fpmislata.domain.Direccion;
 import com.fpmislata.domain.Persona;
 import com.fpmislata.domain.Socio;
 import com.fpmislata.service.PersonaServiceLocal;
@@ -46,6 +47,10 @@ public class AltaPersona extends HttpServlet {
         String email = request.getParameter("email");
         String telefono = request.getParameter("telefono");
         int numSocio = Integer.parseInt(request.getParameter("numSocio"));
+        String direccion = request.getParameter("direccion");
+        String poblacion = request.getParameter("poblacion");
+        String codigoPostal = request.getParameter("codigoPostal");
+        String provincia = request.getParameter("provincia");
 
         //2. Creamos el objeto Persona
         Persona persona = new Persona();
@@ -56,8 +61,15 @@ public class AltaPersona extends HttpServlet {
         //Creamos el objeto Socio
         Socio socio = new Socio();
         socio.setNumSocio(numSocio);
-        
         persona.setSocio(socio);
+        
+        //Creamos el objeto Dirección
+        Direccion d = new Direccion();
+        d.setDireccion(direccion);
+        d.setPoblacion(poblacion);
+        d.setCodigoPostal(codigoPostal);
+        d.setProvincia(provincia);
+        persona.setDireccion(d);
 
         try {            
             //Si ya existe el email no deberia registrarse

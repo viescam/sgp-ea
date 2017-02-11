@@ -5,6 +5,7 @@
  */
 package com.fpmislata.servlets;
 
+import com.fpmislata.domain.Direccion;
 import com.fpmislata.domain.Persona;
 import com.fpmislata.domain.Socio;
 import com.fpmislata.service.PersonaServiceLocal;
@@ -28,7 +29,7 @@ public class ModificarPersona extends HttpServlet {
     // Inyeccion de dependencias
     @EJB
     private PersonaServiceLocal personaService;
- 
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,11 +41,11 @@ public class ModificarPersona extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         String accion = request.getParameter("accion");
 
         if (accion != null && accion.equals("editar")) {
-            
+
             //1. Recuperamos el id de la persona seleccionada
             String idPersona = request.getParameter("id");
             if (idPersona != null) {
@@ -52,9 +53,9 @@ public class ModificarPersona extends HttpServlet {
                 int id = Integer.valueOf(idPersona);
                 Persona persona = new Persona();
                 persona.setId(id);
-                try{              
+                try {
                     persona = this.personaService.findPersonaById(persona);
-                }catch(Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -64,14 +65,22 @@ public class ModificarPersona extends HttpServlet {
                 //4. Redireccionamos a la pagina para editar el objeto Persona
                 request.getRequestDispatcher("/modificarPersona.jsp").forward(request, response);
             }
-        }else if  (accion != null && accion.equals("modificar")) {      
+        } else if (accion != null && accion.equals("modificar")) {
 
             //1. Recuperamos los parametros
             String idPersona = request.getParameter("id");
             String nombre = request.getParameter("nombre");
             String email = request.getParameter("email");
             String telefono = request.getParameter("telefono");
-            int numSocio = Integer.parseInt(request.getParameter("numSocio"));
+            //Recuperamos los datos del socio
+            String idSocio = request.getParameter("idsocio");
+            String numSocio = request.getParameter("numSocio");
+            //Recuperamos los datos de la direccion
+            String idDireccion = request.getParameter("iddireccion");
+            String direccion = request.getParameter("direccion");
+            String poblacion = request.getParameter("poblacion");
+            String codigoPostal = request.getParameter("codigoPostal");
+            String provincia = request.getParameter("provincia");
 
             //2. Creamos el objeto Persona
             Persona persona = new Persona();
@@ -80,10 +89,19 @@ public class ModificarPersona extends HttpServlet {
             persona.setNombre(nombre);
             persona.setEmail(email);
             persona.setTelefono(telefono);
-            
+
             //Creamos el objeto Socio
             Socio socio = new Socio();
-            socio.setNumSocio(numSocio);
+            socio.setId(Integer.valueOf(idSocio));
+            socio.setNumSocio(Integer.valueOf(numSocio));
+
+            //Creamos el objeto Direccion
+            Direccion d = new Direccion();
+            d.setDireccion(direccion);
+            d.setPoblacion(poblacion);
+            d.setCodigoPostal(codigoPostal);
+            d.setProvincia(provincia);
+            persona.setDireccion(d);
 
             persona.setSocio(socio);
 
@@ -97,7 +115,7 @@ public class ModificarPersona extends HttpServlet {
             // Volvemos a cargar la lista de personas
             List<Persona> lista = personaService.listPersonas();
             ArrayList<Persona> listaArray = new ArrayList<>(lista);
-            request.getSession().setAttribute("personas",listaArray);
+            request.getSession().setAttribute("personas", listaArray);
 
             request.getRequestDispatcher("/listarPersonas.jsp").forward(request, response);
         }
