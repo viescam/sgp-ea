@@ -48,9 +48,13 @@ public class Persona implements Serializable {
     @PrimaryKeyJoinColumn
     private Coche coche;
     
-    @OneToMany(mappedBy="persona", cascade={CascadeType.ALL},
-    fetch=FetchType.EAGER)
+    /*@OneToMany(mappedBy="persona", cascade={CascadeType.ALL},fetch=FetchType.EAGER)
+    private Set<Libro> libros;*/
+    
+    @OneToMany(mappedBy="persona", cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
+    @OrderColumn(name="order")//(name="idx")
     private Set<Libro> libros;
+    
 
     public Persona() {
         this.libros = new HashSet<>();
