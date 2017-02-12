@@ -40,6 +40,23 @@
         <label for="provincia">Provincia:</label>
         <input type="text" name="provincia" value="${persona.direccion.provincia}" style="display: block;"/>
         
+        <br>
+        <hr width="100%" align="left">
+        <h3>Datos del coche</h3>
+        <br>
+
+        <label for="marca">Marca:</label>
+        <input type="text" name="marca" value="${persona.coche.marca}" style="display: block;" />
+
+        <label for="modelo">Modelo:</label>
+        <input type="text" name="modelo" value="${persona.coche.modelo}" style="display: block;" />
+
+        <label for="matricula">Matrícula:</label>
+        <input type="text" name="matricula" value="${persona.coche.matricula}" style="display: block;" />
+
+        <label for="color">Color:</label>
+        <input type="text" name="color" value="${persona.coche.color}" style="display: block;" />
+        
         <input type="submit" name="guardar" value="guardar">
     </form>
 </body>

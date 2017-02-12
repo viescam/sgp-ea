@@ -5,6 +5,7 @@
  */
 package com.fpmislata.servlets;
 
+import com.fpmislata.domain.Coche;
 import com.fpmislata.domain.Direccion;
 import com.fpmislata.domain.Persona;
 import com.fpmislata.domain.Socio;
@@ -81,6 +82,11 @@ public class ModificarPersona extends HttpServlet {
             String poblacion = request.getParameter("poblacion");
             String codigoPostal = request.getParameter("codigoPostal");
             String provincia = request.getParameter("provincia");
+            // Recuperamos los datos del coche
+            String marca = request.getParameter("marca");
+            String modelo = request.getParameter("modelo");
+            String matricula = request.getParameter("matricula");
+            String color = request.getParameter("color");
 
             //2. Creamos el objeto Persona
             Persona persona = new Persona();
@@ -94,6 +100,7 @@ public class ModificarPersona extends HttpServlet {
             Socio socio = new Socio();
             socio.setId(Integer.valueOf(idSocio));
             socio.setNumSocio(Integer.valueOf(numSocio));
+            persona.setSocio(socio);
 
             //Creamos el objeto Direccion
             Direccion d = new Direccion();
@@ -103,7 +110,14 @@ public class ModificarPersona extends HttpServlet {
             d.setProvincia(provincia);
             persona.setDireccion(d);
 
-            persona.setSocio(socio);
+            //5. Creamos el objeto Coche
+            Coche c = new Coche();
+            c.setMarca(marca);
+            c.setModelo(modelo);
+            c.setMatricula(matricula);
+            c.setColor(color);
+            c.setPersona(persona);
+            persona.setCoche(c);
 
             try {
                 this.personaService.updatePersona(persona);

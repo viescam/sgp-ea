@@ -5,6 +5,7 @@
  */
 package com.fpmislata.servlets;
 
+import com.fpmislata.domain.Coche;
 import com.fpmislata.domain.Direccion;
 import com.fpmislata.domain.Persona;
 import com.fpmislata.domain.Socio;
@@ -30,7 +31,6 @@ public class AltaPersona extends HttpServlet {
     @EJB
     private PersonaServiceLocal personaService;
 
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -46,23 +46,30 @@ public class AltaPersona extends HttpServlet {
         String nombre = request.getParameter("nombre");
         String email = request.getParameter("email");
         String telefono = request.getParameter("telefono");
+        // Recuperamos los datos del socio
         int numSocio = Integer.parseInt(request.getParameter("numSocio"));
+        // Recuperamos los datos de la direccion
         String direccion = request.getParameter("direccion");
         String poblacion = request.getParameter("poblacion");
         String codigoPostal = request.getParameter("codigoPostal");
         String provincia = request.getParameter("provincia");
+// Recuperamos los datos del coche
+        String marca = request.getParameter("marca");
+        String modelo = request.getParameter("modelo");
+        String matricula = request.getParameter("matricula");
+        String color = request.getParameter("color");
 
         //2. Creamos el objeto Persona
         Persona persona = new Persona();
         persona.setNombre(nombre);
         persona.setEmail(email);
         persona.setTelefono(telefono);
-        
+
         //Creamos el objeto Socio
         Socio socio = new Socio();
         socio.setNumSocio(numSocio);
         persona.setSocio(socio);
-        
+
         //Creamos el objeto Dirección
         Direccion d = new Direccion();
         d.setDireccion(direccion);
@@ -71,7 +78,16 @@ public class AltaPersona extends HttpServlet {
         d.setProvincia(provincia);
         persona.setDireccion(d);
 
-        try {            
+        //5. Creamos el objeto Coche
+        Coche c = new Coche();
+        c.setMarca(marca);
+        c.setModelo(modelo);
+        c.setMatricula(matricula);
+        c.setColor(color);
+        c.setPersona(persona);
+        persona.setCoche(c);
+
+        try {
             //Si ya existe el email no deberia registrarse
             personaService.addPersona(persona);
         } catch (Exception e) {
@@ -80,11 +96,11 @@ public class AltaPersona extends HttpServlet {
         }
 
         // Volvemos a cargar la lista de personas
-	List<Persona> lista = personaService.listPersonas();
+        List<Persona> lista = personaService.listPersonas();
         ArrayList<Persona> listaArray = new ArrayList<>(lista);
-        request.getSession().setAttribute("personas",listaArray);
+        request.getSession().setAttribute("personas", listaArray);
 
-	request.getRequestDispatcher("/listarPersonas.jsp").forward(request,response);        
+        request.getRequestDispatcher("/listarPersonas.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

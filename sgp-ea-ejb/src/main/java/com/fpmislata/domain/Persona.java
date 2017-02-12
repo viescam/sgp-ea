@@ -6,6 +6,8 @@
 package com.fpmislata.domain;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.*;
 
 /**
@@ -41,14 +43,24 @@ public class Persona implements Serializable {
     @OneToOne(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
     @JoinColumn(name="direccion")
     private Direccion direccion;
+    
+    @OneToOne(cascade={CascadeType.ALL}, fetch=FetchType.EAGER)
+    @PrimaryKeyJoinColumn
+    private Coche coche;
+    
+    @OneToMany(mappedBy="persona", cascade={CascadeType.ALL},
+    fetch=FetchType.EAGER)
+    private Set<Libro> libros;
 
     public Persona() {
+        this.libros = new HashSet<>();
     }
 
     public Persona(String nombre, String email, String telefono) {
         this.nombre = nombre;
         this.email = email;
         this.telefono = telefono;
+        this.libros = new HashSet<>();
     }
 
     public Socio getSocio() {
@@ -65,6 +77,22 @@ public class Persona implements Serializable {
 
     public void setDireccion(Direccion direccion) {
         this.direccion = direccion;
+    }
+
+    public Coche getCoche() {
+        return coche;
+    }
+
+    public void setCoche(Coche coche) {
+        this.coche = coche;
+    }
+
+    public Set<Libro> getLibros() {
+        return libros;
+    }
+
+    public void setLibros(Set<Libro> libros) {
+        this.libros = libros;
     }
        
     

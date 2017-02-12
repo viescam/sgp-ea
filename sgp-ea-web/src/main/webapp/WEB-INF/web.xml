@@ -16,6 +16,10 @@
         <servlet-name>EliminarPersona</servlet-name>
         <servlet-class>com.fpmislata.servlets.EliminarPersona</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ControllerLibros</servlet-name>
+        <servlet-class>com.fpmislata.servlets.ControllerLibros</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>ListarPersonas</servlet-name>
         <url-pattern>/ListarPersonas</url-pattern>
@@ -32,6 +36,14 @@
         <servlet-name>EliminarPersona</servlet-name>
         <url-pattern>/EliminarPersona</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControllerLibros</servlet-name>
+        <url-pattern>/ListarLibros</url-pattern>
+        <url-pattern>/AltaLibro</url-pattern>
+        <url-pattern>/ListarLibrosPorPersona</url-pattern>
+        <url-pattern>/ControllerLibros</url-pattern>
+    </servlet-mapping>
+ 
     <session-config>
         <session-timeout>
             30
